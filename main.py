@@ -1,4 +1,4 @@
-from Busquedas.uniform_cost_search import UniformCostSearch
+from uniform_cost_search import UniformCostSearch
 from bidirectional_search import BidirectionalSearch
 from depth_first_search import DepthFirstSearch
 from breadth_first_search import BreadthFirstSearch
