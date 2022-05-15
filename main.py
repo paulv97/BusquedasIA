@@ -1,3 +1,6 @@
+from best_first_search import BestFirstSearch
+from gradient_ascent_search import GradientAscentSearch
+from iterative_deepening_df_search import IterativeDeepeningDepthFirstSearch
 from uniform_cost_search import UniformCostSearch
 from bidirectional_search import BidirectionalSearch
 from depth_first_search import DepthFirstSearch
@@ -44,13 +47,36 @@ if __name__ == '__main__':
     print('Nodos Extraidos FIN:')
     print(searcher.goal_extracted)
 
-    print('----------UNIFORM COST SEARCH-----------')
-    searcher = UniformCostSearch()
+    print('----------ITERATIVE DEEPENING DEPTH FIRST SEARCH-----------')
+    searcher = IterativeDeepeningDepthFirstSearch()
     searcher.search(src, dest)
     print('Nodos Extraidos:')
     print(searcher.extracted)
     print('Nodo encontrado:')
     print(searcher.found)
 
+    print('----------UNIFORM COST SEARCH-----------')
+    #searcher = UniformCostSearch()
+    #searcher.search(src, dest)
+    print('Nodos Extraidos:')
+    print(searcher.extracted)
+    print('Nodo encontrado:')
+    print(searcher.found)
+
+    print('----------GRADIENT ASCENT SEARCH-----------')
+    searcher = GradientAscentSearch()
+    searcher.search(src, dest)
+    print('Nodos Extraidos:')
+    print(searcher.extracted)
+    print('Nodo encontrado:')
+    print(searcher.found)
+
+    print('----------BEST FIRST SEARCH-----------')
+    searcher = BestFirstSearch()
+    searcher.search(src, dest)
+    print('Nodos Extraidos:')
+    print(searcher.extracted)
+    print('Nodo encontrado:')
+    print(searcher.found)
 
 

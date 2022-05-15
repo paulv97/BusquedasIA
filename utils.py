@@ -15,8 +15,8 @@ def llenar_tabla(lista_nodos):
         database_instance.connect()
 
         delete_sql = "DELETE FROM nodos;"
-        insert_sql = """INSERT INTO nodos(id_nodo, id_nodo_conecta, peso)
-                VALUES(%s, %s, %s) RETURNING id_nodo;"""
+        insert_sql = """INSERT INTO nodos(id_nodo, id_nodo_conecta, peso, fev)
+                VALUES(%s, %s, %s, %s) RETURNING id_nodo;"""
 
         database_instance.execute_transaction(delete_sql, None)
 
@@ -24,8 +24,9 @@ def llenar_tabla(lista_nodos):
             obj = data.split(',')
             id_nodo = obj[0]
             id_nodo_conecta = obj[1]
-            peso = obj[2].replace('\n', '')
-            database_instance.execute_transaction(insert_sql, (id_nodo, id_nodo_conecta, peso))
+            peso = obj[2]
+            fev = obj[3].replace('\n', '')
+            database_instance.execute_transaction(insert_sql, (id_nodo, id_nodo_conecta, peso, fev))
 
     except (Exception, psycopg2.DatabaseError) as error:
         print(error)
