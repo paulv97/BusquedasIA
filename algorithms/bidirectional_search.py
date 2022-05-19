@@ -1,5 +1,4 @@
-from constant import database_instance, nodes_query_sql, nodes_query_sql_parents, get_node
-from utils import lists_have_same_elements
+from utilidades.constant import database_instance, nodes_query_sql, nodes_query_sql_parents, get_node
 
 
 class BidirectionalSearch:

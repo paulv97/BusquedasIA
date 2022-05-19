@@ -1,12 +1,11 @@
-from constant import database_instance, nodes_query_sql, get_node
-from utils import lists_have_same_elements
+from utilidades.constant import database_instance, nodes_query_sql, get_node
+from utilidades.utils import lists_have_same_elements
 
 
-class DepthFirstSearch:
+class BreadthFirstSearch:
 
     def __init__(self):
-        self.stack = []
-        self.__aux_stack = []
+        self.tail = []
         self.extracted = []
         self.found = []
 
@@ -19,25 +18,23 @@ class DepthFirstSearch:
             if rows is None or len(rows) == 0:
                 raise Exception('El nodo ' + current + ' no existe...')
 
-            self.stack.append(current)
+            self.tail.append(current)
 
-            while len(self.stack) > 0:
+            while len(self.tail) > 0:
                 if self.final_nodes_are_found(final_nodes):
                     break
 
                 self.add_found(current, final_nodes)
 
-                self.__aux_stack.extend(self.stack)
+                self.add_extracted(current)
 
-                last = self.stack.pop()
-                if last not in self.extracted:
-                    self.extracted.append(last)
+                self.tail.remove(current)
 
-                self.add_to_stack(rows)
+                self.add_to_tail(rows)
 
-                if len(self.stack) > 0:
-                    current = self.stack[-1]
-                    rows = database_instance.execute_sql(nodes_query_sql, (current,))
+                current = self.tail[0]
+
+                rows = database_instance.execute_sql(nodes_query_sql, (current,))
 
         except Exception as error:
             print(error)
@@ -68,9 +65,17 @@ class DepthFirstSearch:
 
         return False
 
-    def add_to_stack(self, rows):
+    def add_to_tail(self, rows):
         for row in rows:
             if row is not None:
                 row = get_node(row)
-                if row not in self.__aux_stack:
-                    self.stack.append(row)
+                if row not in self.extracted and row not in self.tail:
+                    self.tail.append(row)
+
+    def add_extracted(self, current_node):
+        if current_node not in self.extracted:
+            self.extracted.append(current_node)
+            return True
+
+        return False
+

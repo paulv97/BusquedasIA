@@ -1,6 +1,6 @@
 import psycopg2
 
-from constant import database_instance
+from utilidades.constant import database_instance
 
 
 def cargar_archivo(filename='nodes.csv'):

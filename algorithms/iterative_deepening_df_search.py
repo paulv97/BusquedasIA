@@ -1,5 +1,5 @@
-from constant import database_instance, nodes_query_sql, get_node
-from utils import lists_have_same_elements
+from utilidades.constant import database_instance, nodes_query_sql, get_node
+from utilidades.utils import lists_have_same_elements
 
 
 class IterativeDeepeningDepthFirstSearch:

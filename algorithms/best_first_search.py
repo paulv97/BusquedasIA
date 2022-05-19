@@ -1,7 +1,7 @@
-from constant import database_instance, get_node, nodes_fev_query_sql
+from utilidades.constant import database_instance, nodes_fev_query_sql, get_node
 
 
-class GradientAscentSearch:
+class BestFirstSearch:
 
     def __init__(self):
         self.extracted = []
@@ -59,3 +59,4 @@ class GradientAscentSearch:
             return True
 
         return False
+

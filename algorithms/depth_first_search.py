@@ -1,11 +1,12 @@
-from constant import database_instance, nodes_query_sql, nodes_query_sql_parents, get_node
-from utils import lists_have_same_elements
+from utilidades.constant import database_instance, nodes_query_sql, get_node
+from utilidades.utils import lists_have_same_elements
 
 
-class BreadthFirstSearch:
+class DepthFirstSearch:
 
     def __init__(self):
-        self.tail = []
+        self.stack = []
+        self.__aux_stack = []
         self.extracted = []
         self.found = []
 
@@ -18,23 +19,25 @@ class BreadthFirstSearch:
             if rows is None or len(rows) == 0:
                 raise Exception('El nodo ' + current + ' no existe...')
 
-            self.tail.append(current)
+            self.stack.append(current)
 
-            while len(self.tail) > 0:
+            while len(self.stack) > 0:
                 if self.final_nodes_are_found(final_nodes):
                     break
 
                 self.add_found(current, final_nodes)
 
-                self.add_extracted(current)
+                self.__aux_stack.extend(self.stack)
 
-                self.tail.remove(current)
+                last = self.stack.pop()
+                if last not in self.extracted:
+                    self.extracted.append(last)
 
-                self.add_to_tail(rows)
+                self.add_to_stack(rows)
 
-                current = self.tail[0]
-
-                rows = database_instance.execute_sql(nodes_query_sql, (current,))
+                if len(self.stack) > 0:
+                    current = self.stack[-1]
+                    rows = database_instance.execute_sql(nodes_query_sql, (current,))
 
         except Exception as error:
             print(error)
@@ -65,17 +68,9 @@ class BreadthFirstSearch:
 
         return False
 
-    def add_to_tail(self, rows):
+    def add_to_stack(self, rows):
         for row in rows:
             if row is not None:
                 row = get_node(row)
-                if row not in self.extracted and row not in self.tail:
-                    self.tail.append(row)
-
-    def add_extracted(self, current_node):
-        if current_node not in self.extracted:
-            self.extracted.append(current_node)
-            return True
-
-        return False
-
+                if row not in self.__aux_stack:
+                    self.stack.append(row)

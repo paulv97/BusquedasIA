@@ -1,18 +1,18 @@
-from a_search import ASearch
-from best_first_search import BestFirstSearch
-from gradient_ascent_search import GradientAscentSearch
-from greedy_search import GreedySearch
-from iterative_deepening_df_search import IterativeDeepeningDepthFirstSearch
-from uniform_cost_search import UniformCostSearch
-from bidirectional_search import BidirectionalSearch
-from depth_first_search import DepthFirstSearch
-from breadth_first_search import BreadthFirstSearch
+from algorithms.a_search import ASearch
+from algorithms.best_first_search import BestFirstSearch
+from algorithms.gradient_ascent_search import GradientAscentSearch
+from algorithms.greedy_search import GreedySearch
+from algorithms.iterative_deepening_df_search import IterativeDeepeningDepthFirstSearch
+from algorithms.uniform_cost_search import UniformCostSearch
+from algorithms.bidirectional_search import BidirectionalSearch
+from algorithms.depth_first_search import DepthFirstSearch
+from algorithms.breadth_first_search import BreadthFirstSearch
 
-from utils import cargar_archivo, llenar_tabla
+from utilidades.utils import cargar_archivo, llenar_tabla
 
 import time
 
-lista_nodos = cargar_archivo()
+lista_nodos = cargar_archivo('./assets/nodes.csv')
 llenar_tabla(lista_nodos)
 
 
@@ -113,9 +113,9 @@ def run_production():
             exit(0)
 
         print('Ingrese nodo inicial')
-        src = input()
+        src = input().upper()
         print('Ingrese un nodo meta')
-        dest = input()
+        dest = input().upper()
 
         if opt == 0:
             print('[AMPLITUD]')
@@ -217,29 +217,31 @@ def run_production():
 
         if opt == 7:
             print('[A ESTRELLA]')
-            searcher = ASearch()
-            tic = time.perf_counter()
-            searcher.search(src, dest)
-            toc = time.perf_counter()
-            print('Nodos Extraidos:')
-            print(searcher.extracted)
-            print('Nodo encontrado:')
-            print(searcher.found)
-            print(f"Ejecutado en  {toc - tic:0.4f} segundos")
+            print('Metodo no soportado')
+            # searcher = ASearch()
+            # tic = time.perf_counter()
+            # searcher.search(src, dest)
+            # toc = time.perf_counter()
+            # print('Nodos Extraidos:')
+            # print(searcher.extracted)
+            # print('Nodo encontrado:')
+            # print(searcher.found)
+            # print(f"Ejecutado en  {toc - tic:0.4f} segundos")
             opt = -1
             continue
 
         if opt == 8:
             print('[ALGORITMO VORAZ]')
-            searcher = GreedySearch()
-            tic = time.perf_counter()
-            searcher.search(src, dest)
-            toc = time.perf_counter()
-            print('Nodos Extraidos:')
-            print(searcher.extracted)
-            print('Nodo encontrado:')
-            print(searcher.found)
-            print(f"Ejecutado en  {toc - tic:0.4f} segundos")
+            print('Metodo no soportado')
+            # searcher = GreedySearch()
+            # tic = time.perf_counter()
+            # searcher.search(src, dest)
+            # toc = time.perf_counter()
+            # print('Nodos Extraidos:')
+            # print(searcher.extracted)
+            # print('Nodo encontrado:')
+            # print(searcher.found)
+            # print(f"Ejecutado en  {toc - tic:0.4f} segundos")
             opt = -1
             continue
 

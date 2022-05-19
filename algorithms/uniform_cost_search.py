@@ -1,4 +1,4 @@
-from constant import database_instance, nodes_query_sql, get_node_with_cost
+from utilidades.constant import database_instance, nodes_query_sql, get_node_with_cost
 
 
 def sort_key(element):
@@ -29,12 +29,9 @@ class UniformCostSearch:
 
                 self.add_found(current, dest)
 
-                self.add_extracted(current)
-
-                try:
+                if current in self.queue:
                     self.queue.remove(current)
-                except Exception as error:
-                    print(error)
+                    self.add_extracted(current)
 
                 self.add_to_queue(rows)
 
