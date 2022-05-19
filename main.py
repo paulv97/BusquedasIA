@@ -232,16 +232,15 @@ def run_production():
 
         if opt == 8:
             print('[ALGORITMO VORAZ]')
-            print('Algoritmo no soportado')
-            # searcher = GreedySearch()
-            # tic = time.perf_counter()
-            # searcher.search(src, dest)
-            # toc = time.perf_counter()
-            # print('Nodos Extraidos:')
-            # print(searcher.extracted)
-            # print('Nodo encontrado:')
-            # print(searcher.found)
-            # print(f"Ejecutado en  {toc - tic:0.4f} segundos")
+            searcher = GreedySearch()
+            tic = time.perf_counter()
+            searcher.search(src, dest)
+            toc = time.perf_counter()
+            print('Nodos Extraidos:')
+            print(searcher.extracted)
+            print('Nodo encontrado:')
+            print(searcher.found)
+            print(f"Ejecutado en  {toc - tic:0.4f} segundos")
             opt = -1
             continue
 
@@ -303,11 +302,11 @@ def run_all_algorithms(src, dest):
     # toc = time.perf_counter()
     # details.append(['|A*|', searcher.extracted, '|' + f"{toc - tic:0.4f} seg" + '|'])
 
-    # searcher = GreedySearch()
-    # tic = time.perf_counter()
-    # searcher.search(src, dest)
-    # toc = time.perf_counter()
-    # details.append(['|Algoritmo voraz|', searcher.extracted, '|' + f"{toc - tic:0.4f} seg" + '|'])
+    searcher = GreedySearch()
+    tic = time.perf_counter()
+    searcher.search(src, dest)
+    toc = time.perf_counter()
+    details.append(['|Algoritmo voraz|', searcher.extracted, '|' + f"{toc - tic:0.4f} seg" + '|'])
 
     for result in details:
         print(result[0], result[1], result[2])
