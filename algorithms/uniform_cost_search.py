@@ -1,4 +1,4 @@
-from utilidades.constant import database_instance, nodes_query_sql, get_node_with_cost
+from utilities.constant import database_instance, nodes_query_sql, get_node_with_cost
 
 
 def sort_key(element):

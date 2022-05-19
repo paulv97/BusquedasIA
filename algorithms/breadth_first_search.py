@@ -1,5 +1,5 @@
-from utilidades.constant import database_instance, nodes_query_sql, get_node
-from utilidades.utils import lists_have_same_elements
+from utilities.constant import database_instance, nodes_query_sql, get_node
+from utilities.utils import lists_have_same_elements
 
 
 class BreadthFirstSearch:

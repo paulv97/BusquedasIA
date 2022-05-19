@@ -8,7 +8,7 @@ from algorithms.bidirectional_search import BidirectionalSearch
 from algorithms.depth_first_search import DepthFirstSearch
 from algorithms.breadth_first_search import BreadthFirstSearch
 
-from utilidades.utils import cargar_archivo, llenar_tabla
+from utilities.utils import cargar_archivo, llenar_tabla
 
 import time
 
@@ -217,7 +217,7 @@ def run_production():
 
         if opt == 7:
             print('[A ESTRELLA]')
-            print('Metodo no soportado')
+            print('Algoritmo no soportado')
             # searcher = ASearch()
             # tic = time.perf_counter()
             # searcher.search(src, dest)
@@ -232,7 +232,7 @@ def run_production():
 
         if opt == 8:
             print('[ALGORITMO VORAZ]')
-            print('Metodo no soportado')
+            print('Algoritmo no soportado')
             # searcher = GreedySearch()
             # tic = time.perf_counter()
             # searcher.search(src, dest)

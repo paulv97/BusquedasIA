@@ -1,4 +1,4 @@
-from utilidades.constant import database_instance, nodes_query_sql, nodes_query_sql_parents, get_node
+from utilities.constant import database_instance, nodes_query_sql, nodes_query_sql_parents, get_node
 
 
 class BidirectionalSearch:

@@ -1,4 +1,4 @@
-from utilidades.constant import database_instance, get_node, nodes_fev_query_sql
+from utilities.constant import database_instance, get_node, nodes_fev_query_sql
 
 
 class GradientAscentSearch:

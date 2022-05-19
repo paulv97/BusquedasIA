@@ -1,4 +1,4 @@
-from utilidades.constant import database_instance, nodes_fev_query_sql, get_node
+from utilities.constant import database_instance, nodes_fev_query_sql, get_node
 
 
 class BestFirstSearch:
