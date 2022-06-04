@@ -22,47 +22,23 @@ class UniformCostSearch:
                 raise Exception('El nodo ' + current[0] + ' no existe...')
 
             self.queue.append(current)
-
             while len(self.queue) > 0:
-                if self.final_node_is_found(dest):
+                self.queue.remove(current)
+                self.add_extracted(current)
+
+                if current[0] == dest:
+                    self.found = current
                     break
 
-                self.add_found(current, dest)
-
-                if current in self.queue:
-                    self.queue.remove(current)
-                    self.add_extracted(current)
-
-                self.add_to_queue(rows)
-
-                back_cost = current[1]
-                current = self.queue[0]
-                current_list = list(current)
-                current_list[1] += back_cost
-                current = tuple(current_list)
-
-                rows = database_instance.execute_sql(nodes_query_sql, (current[0],))
+                successors = database_instance.execute_sql(nodes_query_sql, (current[0],))
+                self.add_to_queue(successors, current[1])
+                if len(self.queue) > 0:
+                    current = self.queue[0]
 
         except Exception as error:
             print(error)
         finally:
             database_instance.close()
-
-    def final_node_is_found(self, final_node):
-        if final_node is None:
-            return False
-
-        return self.found == final_node
-
-    def add_found(self, current_node, final_node):
-        if final_node is None:
-            return False
-
-        if current_node[0] == final_node:
-            self.found = current_node[0]
-            return True
-
-        return False
 
     def add_extracted(self, current_node):
         if current_node not in self.extracted:
@@ -71,11 +47,44 @@ class UniformCostSearch:
 
         return False
 
-    def add_to_queue(self, rows):
+    def add_to_queue(self, rows, total_cost):
         for row in rows:
             if row is not None:
                 row = get_node_with_cost(row)
-                if row not in self.extracted and row not in self.queue:
-                    self.queue.append(row)
+                if not self.node_has_shown(row):
+                    node = list(row)
+                    node[1] += total_cost
+                    self.queue.append(tuple(node))
+                else:
+                    new_node = list(row)
+                    new_node[1] += total_cost
+
+                    existent_node = self.get_existent_node(row, self.queue)
+                    if existent_node is None:
+                        existent_node = self.get_existent_node(row, self.extracted)
+                        if existent_node[1] > new_node[1]:
+                            self.queue.append(tuple(new_node))
+                            self.extracted.remove(existent_node)
+                    else:
+                        if existent_node[1] > new_node[1]:
+                            idx = self.queue.index(existent_node)
+                            self.queue[idx] = tuple(new_node)
 
         self.queue.sort(key=sort_key)
+
+    def node_has_shown(self, node):
+        for n in self.queue:
+            if n[0] == node[0]:
+                return True
+
+        for n in self.extracted:
+            if n[0] == node[0]:
+                return True
+
+        return False
+
+    def get_existent_node(self, node, array):
+        for n in array:
+            if n[0] == node[0]:
+                return n
+        return None
